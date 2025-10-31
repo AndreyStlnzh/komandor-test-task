@@ -1,0 +1,20 @@
+
+import pandas as pd
+from src.db.sales_model import SalesModel
+
+
+sales = SalesModel.get_all_sales_as_df()
+
+aggregated = sales.groupby(["store_id"]).agg({
+    "sale_sum": "sum",
+}).round(2)
+
+store = pd.read_excel("data\Продажи по магазинам.xlsx", index_col="store_id")
+
+# Индексы совпадают и имеют одинаковый порядок
+diff_mask = aggregated["sale_sum"] != store["sale_sum"]
+mismatched = aggregated[diff_mask].copy()
+mismatched["store_sale_sum"] = store.loc[diff_mask, "sale_sum"]
+mismatched[["sale_sum", "store_sale_sum"]]
+
+print("Магазины с различающимися суммами: ", mismatched.index.values.tolist())
