@@ -10,7 +10,7 @@ except FileNotFoundError:
     print("Файл 'Продажи по кассам.xlsx' не найден")
     exit(1)
 try:
-    reference = pd.read_excel(os.path.join(DATA_DIR, "data\Справочник касс.xlsx"), index_col="cash_id")
+    reference = pd.read_excel(os.path.join(DATA_DIR, "Справочник касс.xlsx"), index_col="cash_id")
 except FileNotFoundError:
     print("Файл 'Справочник касс.xlsx' не найден")
     exit(1)

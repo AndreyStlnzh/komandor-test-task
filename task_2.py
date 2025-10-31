@@ -1,5 +1,6 @@
-
+import os
 import pandas as pd
+from src.settings import DATA_DIR
 from src.db.sales_model import SalesModel
 
 
@@ -10,7 +11,7 @@ aggregated = sales.groupby(["store_id"]).agg({
 }).round(2)
 
 try:
-    store = pd.read_excel("data\Продажи по магазинам.xlsx", index_col="store_id")
+    store = pd.read_excel(os.path.join(DATA_DIR, "Продажи по магазинам.xlsx"), index_col="store_id")
 except FileNotFoundError:
     print("Файл 'Продажи по магазинам' не найден")
     exit(1)
