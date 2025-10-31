@@ -9,7 +9,12 @@ aggregated = sales.groupby(["store_id"]).agg({
     "sale_sum": "sum",
 }).round(2)
 
-store = pd.read_excel("data\Продажи по магазинам.xlsx", index_col="store_id")
+try:
+    store = pd.read_excel("data\Продажи по магазинам.xlsx", index_col="store_id")
+except FileNotFoundError:
+    print("Файл 'Продажи по магазинам' не найден")
+    exit(1)
+
 
 # Индексы совпадают и имеют одинаковый порядок
 diff_mask = aggregated["sale_sum"] != store["sale_sum"]
